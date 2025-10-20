@@ -1,8 +1,9 @@
 import {createBrowserRouter, RouterProvider} from "react-router";
 import index from "./components/pages/index/index";
 import news from "./components/pages/news/news";
-import dashboard from "./components/pages/dashboard/dashboard";
+import LK from "./components/pages/LK/LK";
 import auth from "./components/pages/auth/auth";
+import newsChildren from "./components/pages/newsChildren/newsChaldren";
 export default function MyRoutes(){
     
     return;
@@ -25,8 +26,13 @@ export let routes = createBrowserRouter([
     
   },
   {
-    path: "/dashboard",
-    Component: dashboard,
+    path: "/LK",
+    Component: LK,
+    
+  },
+  {
+    path: "/newsChildren",
+    Component: newsChildren,
     
   },
 

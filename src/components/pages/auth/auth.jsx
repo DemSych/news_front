@@ -1,6 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './auth.module.css'
+import { request } from '../../libs/request';
+import { useNavigate } from 'react-router';
+
+let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 export default function auth() {
+    let navigate = useNavigate();
+    const [authUser, setauthUser] = useState({email: null, password: null});
+    function onAuthrequest(evt){
+        evt.preventDefault();
+        //console.log(evt);
+        request({method: 'POST', url: VITE_BACK_API + '/auth', data: authUser, callback:(respons)=>{
+           if(respons.data.hasOwnProperty("token")){
+                sessionStorage.setItem('token', respons.data.token);
+                 navigate("/news");
+           } 
+           else{
+             console.log(respons.data);
+           }
+        }});
+        
+    }
+    function onChangeEmail(evt){
+        //console.log(evt.target.value);
+        authUser.email = evt.target.value;
+        let copy = Object.assign({},authUser );
+        setauthUser(copy);
+    }
+    function onChangePassword(evt){
+        //console.log(evt.target.value);
+        authUser.password = evt.target.value;
+        let copy = Object.assign({},authUser );
+        setauthUser(copy);
+    }
   return (
     <>
         
@@ -13,15 +45,15 @@ export default function auth() {
                             </a>
                         </div>
 
-                        <form>
+                        <form action='' onSubmit={onAuthrequest}>
                             <div >
-                                <label for="exampleInputEmail" className={style.label}>Введите Email</label>
-                                <input type="text"  id="exampleInputEmail" className={style.form_control}/>
+                                <label  className={style.label}>Введите Email</label>
+                                <input type="text" onChange={onChangeEmail} placeholder='email' nema="email" id="exampleInputEmail" className={style.form_control}/>
                             </div>
 
                             <div >
-                                <label for="exampleInputPassword" className={style.label}>Введите пароль</label>
-                                <input type="password"  id="exampleInputPassword" className={style.form_control}/>
+                                <label  className={style.label}>Введите пароль</label>
+                                <input type="password" onChange={onChangePassword} placeholder='password' name="password" id="exampleInputPassword" className={style.form_control}/>
                             </div>
 
                             {/* <div>
@@ -30,7 +62,7 @@ export default function auth() {
                             </div> */}
 
                             <div >
-                                <button type="button" className={style.btn}>Войти</button>
+                                <button className={style.btn}>Войти</button>
                             </div>
 
                             

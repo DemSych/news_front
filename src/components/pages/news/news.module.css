@@ -1,0 +1,65 @@
+.menu{
+    width: 100%;
+    height: auto;
+    background-color: #5e4886;
+    display: flex;
+    justify-content: space-between;
+}
+.name_menu{
+    padding: 5px 20px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    margin-right: 50px;
+}
+.news_menu, .main_menu{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    list-style-type: none;
+    border-left: 1px solid #fff;
+    padding: 25px 0;
+}
+.button_menu{
+    display: block;
+}
+.button{
+    padding: 10px 20px;
+    margin: 20px 10px;
+    color: #fff;
+   
+}
+.content_news{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+}
+.blok_content{
+    width: 98%;
+    padding: 10px 5px;
+    text-align: left;
+}
+.image_news{
+    width: 100%;
+    border-radius: 20px;
+}
+.header_news{
+    font-size: 25px;
+}
+.calendar{
+    color: rgb(88, 83, 83);
+
+}
+.icon_calendar{
+    padding-right: 5px;
+}
+.lake{
+    padding-right: 5px;
+    font-size: 20px;
+}
+.date_calendar{
+    padding-right: 10px;
+}
+.lake_namber{
+    font-size: 20px;
+    padding-right: 5px;
+}
