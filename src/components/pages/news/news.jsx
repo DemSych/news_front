@@ -1,17 +1,18 @@
 import React,{useEffect, useState} from 'react';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { request } from '../../libs/request';
 import style from './news.module.css';
 import { FaCalendarAlt } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { FaEye } from "react-icons/fa";
+import Loader from '../loader/loader';
 
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 
 export default function news() {
   let navigate = useNavigate();
   let [newss, setNewss] = useState([]);
-  //let newss = [];
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(()=>{
     if(!sessionStorage.getItem("token")){
         navigate("/auth");
@@ -27,10 +28,11 @@ export default function news() {
 
   },[]);
   useEffect(()=>{
+    setIsLoading(true);
    request({method:"GET", url: VITE_BACK_API + "/get-faile-news", callback: (respons)=>{
          
          setNewss(respons.data);
-         
+         setIsLoading(false);
         }
       });
    
@@ -41,6 +43,9 @@ export default function news() {
         if(respons.data.author == 1){
            navigate("/LK");
         }
+        else{
+          alert("Необходимы права редактора");
+        }
       }})
   }
   function exit(){
@@ -49,58 +54,65 @@ export default function news() {
   }
   function onLike(){
     let newNewss = [];
-    let a = null;
+    let first_max = null;
     for (let news of newss) {
-      if(news.like > a){
-        a = news.like;
+      if(news.like > first_max){
+        first_max = news.like;
         
       };
     }
    for (let i = 0; i < newss.length; i++) {
-      let b = null;
+      let second = null;
       for (let news of newss) {
-        if(news.like == a){
+        if(news.like == first_max){
           newNewss.push(news);
         };
-        if(news.like < a && news.like > b){
-          b = news.like;
+        if(news.like < first_max && news.like > second){
+          second = news.like;
         }
       }
-      a = b;
+      first_max = second;
     }
     setNewss(newNewss);
   }
   function onViews(){
     let newNewss = [];
-    let a = null;
+    let first_max = null;
    
     
     for (let news of newss) {
-      if(news.views > a){
-        a = news.views;
+      if(news.views > first_max){
+        first_max = news.views;
         
       };
     }
    for (let i = 0; i < newss.length; i++) {
-      let b = null;
+      let second = null;
       for (let news of newss) {
-        if(news.views == a){
+        if(news.views == first_max){
           newNewss.push(news);
         };
-        if(news.views < a && news.views > b){
-          b = news.views;
+        if(news.views < first_max && news.views > second){
+          second = news.views;
         }
       }
-      a = b;
+      first_max = second;
     }
     setNewss(newNewss);
   }
-  function onNewsChildren(news){
-    console.log(news);
-    //navigate("/newsChildren");
+  function onNewsChildren(newsId){
+   
+    navigate('/newsChildren/'+newsId);
+  
+    
+   // navigate("/newsChildren");
   }
   return (
     <>
+     {(isLoading)?
+            <Loader />
+           : 
+           <>
     <div className={style.menu}>
        <h2 className={style.name_menu}>Новостной блог</h2>
        
@@ -123,7 +135,7 @@ export default function news() {
       
       {newss.map((news)=>(
         <div className={style.blok_content} key={news.id}>
-          <a className={style.blok_content_all} href="#" onClick={onNewsChildren(news)}>
+          <a className={style.blok_content_all} href="#" onClick={() => onNewsChildren(news.id)}>
             <div className={style.content_image}><img src = {news.news_img} alt="изображение" className={style.image_news}/></div>
             <h3 className={style.header_news}>{news.title}</h3>
             <div className={style.calendar}>
@@ -139,7 +151,8 @@ export default function news() {
       ))}
        
     </div>
-    <img src = {news.img}></img>
+     </>
+      }
     </>
   )
 }

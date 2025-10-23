@@ -1,0 +1,89 @@
+.menu{
+    width: 100%;
+    height: auto;
+    background-color: #5e4886;
+    display: flex;
+    justify-content: space-between;
+}
+.name_menu{
+    padding: 5px 20px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    margin-right: 50px;
+}
+.news_menu, .main_menu{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    list-style-type: none;
+    border-left: 1px solid #fff;
+    padding: 25px 0;
+}
+.button_menu{
+    display: block;
+}
+.button{
+    padding: 10px 20px;
+    margin: 20px 10px;
+    color: #fff;
+   
+}
+.header_news{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.header_text_news{
+    padding: 10px;
+    width: 50%;
+}
+.header_imges_news{
+    padding: 10px;
+    width: 50%;
+}
+.image_news{
+    border-radius: 10px;
+    width: 100%;
+}
+.title_news{
+    font-size: 42px;
+    margin: 0;
+    text-align: left;
+}
+.short_content_news{
+    font-size: 15px;
+    text-align: left;
+    font-weight: 500;
+}
+.calendar{
+    text-align: left;
+}
+.icon_calendar{
+    padding-right: 5px;
+    font-size: 12px;
+}
+.date_calendar{
+    font-size: 12px;
+}
+.content_news_text{
+    text-align: left;
+    font-size: 20px;
+}
+.Like_text{
+    font-size: 25px;
+    font-weight: 400;
+    color: green;
+    padding-right: 10px;
+}
+.like_icon{
+    font-size: 25px;
+    border: 1px solid #f59797;
+    padding: 0 5px;
+    border-radius: 50%;
+}
+.like_icon:hover{
+    box-shadow:0px 0px 10px 5px;
+    color: rgb(252, 87, 22);
+}
