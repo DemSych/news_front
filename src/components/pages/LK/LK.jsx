@@ -1,26 +1,71 @@
-import React from 'react'
-import style from './LK.module.css'
-import avatar from '../imges/avatar-1.jpg'
-import imges from'../imges/img-1.jpg'
+import React, {useEffect, useState} from 'react';
+import style from './LK.module.css';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { request } from '../../libs/request';
+import Loader from '../loader/loader';
 
+let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 export default function LK() {
- 
-
-  return (
+    let navigate = useNavigate();
+    let [newss, setNewss] = useState([]);
+    let [user, setUser] = useState([]);
+    let [isLoading, setIsLoading] = useState(false);
+    let userId = null;
+    useEffect(()=>{
+        if(!sessionStorage.getItem("token")){
+            navigate("/auth");
+        }
+        else{
+          request({method:"POST", url: VITE_BACK_API + "/check-user", data: {"token": sessionStorage.getItem("token")}, callback: (respons)=>{
+            if(!respons.data){
+              sessionStorage.removeItem("token");
+              navigate("/auth");
+            }
+            else{
+                setUser(respons.data);
+                userId = respons.data.id;
+                 setIsLoading(true);
+                 request({method:"GET", url: VITE_BACK_API + "/faile-news-autor/"+ userId, callback: (respons)=>{
+                   setNewss(respons.data);
+                   setIsLoading(false);
+                  }
+                });
+            }
+          }})
+        }
+    
+      },[]);
+    
+    function exit(){
+        sessionStorage.removeItem("token");
+        navigate("/auth");
+        }
+    function comeBack(){
+        navigate("/news");
+        }
+    function newNews(){
+        navigate("/newNews");
+    }
+    return (
     <>
+    {(isLoading)?
+                <Loader />
+               : 
         <div className={style.continer}>
             <div className={style.simplebar_content}>
                 <div className={style.avatar_content}>
-                  <img src={avatar} className={style.avatar}/>
-                  <span className={style.name_avatar}>Иванов Иван</span>
+                  <img src={user.avatar} className={style.avatar}/>
+                  <span className={style.name_avatar}>{user.name}</span>
                 </div>
                 <ul className={style.menu_admin}>
-                    <li className={style.menu_admin_pint}><a>Главная</a></li>
-                    <li className={style.menu_admin_pint}><a>Информационная панель</a></li>
-                    <li className={style.menu_admin_pint}><a>Добавить новость</a></li>
+                    <li className={style.menu_admin_pint}><a href="#" onClick={newNews}>Добавить новость</a></li>
+                    <li className={style.menu_admin_pint}><a href="#" onClick={comeBack}>Вернуться к новостям</a></li>
+                    <li className={style.menu_admin_pint}><a href="#" onClick={exit}>Выход</a></li>
                 </ul>
             </div>
-            <div className={style.sticky_top}>
+            {newss.map((news)=>(
+            <div className={style.sticky_top} key={news.id}>
+                
                 <table>
                     <thead>
                         <tr>
@@ -33,20 +78,23 @@ export default function LK() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Новые настройки в Трекере, выход Документов из беты и другие изменения в Яндекс 360 за сентябрь</td>
-                            <td>Обновили виджеты, расширили настройки доступов и улучшили интерфейсы для удобства сотрудников.</td>
-                            <td><img src={imges} className={style.imges_content}/></td>
-                            <td>Новые функции в Документах
-                            Настроили работу с изображениями и таблицами в Документах. Теперь сотрудники могут вставлять их в текст, а после совместно редактировать. Удобно, если нужно добавить таблицу с расписанием в планы мероприятий или с данными о расходах — в отчёты.
-                            Подключили комментарии. Можно участвовать в обсуждениях прямо в документе: оставлять комментарии, отвечать на них и создавать цепочки. Если отметить комментарий как решённый — он исчезнет с рабочей области, но останется в общем списке на боковой панели. Удобно, если нужно вспомнить, о чём уже говорили с коллегой.
-                            Добавили офлайн-режим. Все изменения, которые пользователи вносят в офлайн-режиме, сохраняются на устройстве и автоматически синхронизируются с облаком после восстановления соединения. Теперь можно безопасно работать с важными документами даже без интернета.
-                            Внедрили функцию поиска и замены. Поиск в системе учитывает регистр, а функция замены позволяет обновлять текст сразу во всём документе.</td>
-                            <td>12.08.2025</td>
+                            <td>{news.title}</td>
+                            <td>{news.short_content}</td>
+                            <td><img src={news.news_img} className={style.imges_content}/></td>
+                            <td>{news.content}</td>
+                            <td>{news.date}</td>
                         </tr>
                     </tbody>
                 </table>
+                <div className={style.button_conteiner}>
+                    <a href="#" className={style.button_redact}>Редактировать</a>
+                    <a href="#" className={style.button_delete}>Удалить</a>
+                </div>
+                
             </div>
-        </div> 
+            ))}
+        </div>
+        } 
     </>
   )
 }

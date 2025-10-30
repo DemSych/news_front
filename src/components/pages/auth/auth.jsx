@@ -48,7 +48,7 @@ export default function auth() {
                         <form action='' onSubmit={onAuthrequest}>
                             <div >
                                 <label  className={style.label}>Введите Email</label>
-                                <input type="text" onChange={onChangeEmail} placeholder='email' nema="email" id="exampleInputEmail" className={style.form_control}/>
+                                <input type="text" onChange={onChangeEmail} placeholder='email' name="email" id="exampleInputEmail" className={style.form_control}/>
                             </div>
 
                             <div >

@@ -56,3 +56,19 @@ table{
 td{
     border: 1px solid #000;
 }
+.button_redact, .button_delete{
+    display: block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 10px;
+    background-color: blue;
+    font-size: 25px;
+    color: #fff;
+    margin-top: 20px;
+}
+.button_delete{
+     background-color: #434a57;
+}
+.sticky_top{
+    display: flex;
+}

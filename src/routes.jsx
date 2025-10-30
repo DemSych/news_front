@@ -5,7 +5,7 @@ import LK from "./components/pages/LK/LK";
 import auth from "./components/pages/auth/auth";
 import newsChildren from "./components/pages/newsChildren/newsChaldren";
 import Loader from "./components/pages/loader/loader";
-
+import newNews from "./components/pages/newNews/newNews";
 export default function MyRoutes(){
     
     return;
@@ -40,6 +40,11 @@ export let routes = createBrowserRouter([
   {
     path: "/loader",
     Component: Loader,
+    
+  },
+  {
+    path: "/newNews",
+    Component: newNews,
     
   },
 ]);

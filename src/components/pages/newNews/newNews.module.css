@@ -1,0 +1,88 @@
+.form_news{
+    background-color: rgb(136, 120, 109);
+    padding: 25px;
+}
+.title{
+    display: block;
+    width: 800px;
+    height: 50px;
+    background-color: rgb(177, 208, 243);
+    border-color: chartreuse;
+    margin: 10px;
+}
+.short_content{
+    display: block;
+    width: 800px;
+    height: 100px;
+    background-color: rgb(177, 208, 243);
+    border-color: chartreuse;
+    margin: 10px;
+}
+.content{
+    display: block;
+    width: 800px;
+    height: 300px;
+    background-color: rgb(177, 208, 243);
+    border-color: chartreuse;
+    margin: 10px;
+}
+.label{
+    display: block;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 500;
+}
+.file{
+    padding: 20px;
+    color: #fff;
+    font-size: 15px;
+}
+.btn{
+    background-color: #0f0;
+    padding: 10px 30px;
+    margin-right: 20px;
+}
+.simplebar_content{
+    
+    width: 100%;
+    border: 1px solid #0c0c0c;
+    display: flex;
+    justify-content: right;
+    background-color: #e5e7eb;
+}
+.menu_admin{
+    list-style: none;
+    display: flex;
+    justify-content: left;
+    
+}
+.menu_admin_pint{
+    display: block;
+    padding: 10px;
+    
+}
+.active_block{
+    
+    display: block;
+    background-color: #fff;
+    border:1px solid #0c0c0c;
+    padding: 20px;
+    margin: 0 auto;
+}
+.isactive_block{
+    display: none;
+}
+.successfully{
+    font-size: 30px;
+    font-weight: 500;
+    color: darkcyan;
+}
+.btn_successfully{
+    padding: 10px 25px;
+    color: #0c0c0c;
+    background-color: rgb(251, 255, 0);
+    border:1px solid #0c0c0c;
+}
+.active_menu{
+    display: block;
+}
