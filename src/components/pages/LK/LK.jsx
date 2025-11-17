@@ -2,67 +2,64 @@ import React, {useEffect, useState} from 'react';
 import style from './LK.module.css';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { request } from '../../libs/request';
-import Loader from '../loader/loader';
-
+import Loader from '../Loader/Loader';
+import LKLayouts from '../../Lauouts/LKLayouts/LKLayouts';
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 export default function LK() {
     let navigate = useNavigate();
     let [newss, setNewss] = useState([]);
-    let [user, setUser] = useState([]);
     let [isLoading, setIsLoading] = useState(false);
+    let [isActive, setIsActive] = useState(false);
     let userId = null;
     useEffect(()=>{
         if(!sessionStorage.getItem("token")){
             navigate("/auth");
         }
         else{
+           setIsLoading(true); 
           request({method:"POST", url: VITE_BACK_API + "/check-user", data: {"token": sessionStorage.getItem("token")}, callback: (respons)=>{
             if(!respons.data){
               sessionStorage.removeItem("token");
+              setIsLoading(false);
               navigate("/auth");
             }
             else{
-                setUser(respons.data);
                 userId = respons.data.id;
-                 setIsLoading(true);
+                 
                  request({method:"GET", url: VITE_BACK_API + "/faile-news-autor/"+ userId, callback: (respons)=>{
-                   setNewss(respons.data);
-                   setIsLoading(false);
+                   if(respons.data.length!= 0){
+                        setNewss(respons.data);
+                        
+                   }
+                   else{
+                       setIsActive(!isActive); 
+                   }
+                    setIsLoading(false);
                   }
                 });
             }
+            
           }})
         }
     
       },[]);
     
-    function exit(){
-        sessionStorage.removeItem("token");
-        navigate("/auth");
-        }
-    function comeBack(){
-        navigate("/news");
-        }
-    function newNews(){
-        navigate("/newNews");
+    function deleteNews(newsId){
+        navigate('/deleteNews/'+newsId);  
+    }
+    function redactNews(newsId){
+        navigate('/newsRedact/'+newsId);
     }
     return (
     <>
+    <LKLayouts>
     {(isLoading)?
                 <Loader />
                : 
         <div className={style.continer}>
-            <div className={style.simplebar_content}>
-                <div className={style.avatar_content}>
-                  <img src={user.avatar} className={style.avatar}/>
-                  <span className={style.name_avatar}>{user.name}</span>
-                </div>
-                <ul className={style.menu_admin}>
-                    <li className={style.menu_admin_pint}><a href="#" onClick={newNews}>Добавить новость</a></li>
-                    <li className={style.menu_admin_pint}><a href="#" onClick={comeBack}>Вернуться к новостям</a></li>
-                    <li className={style.menu_admin_pint}><a href="#" onClick={exit}>Выход</a></li>
-                </ul>
-            </div>
+            <p className={isActive ? style.active_block : style.isactive_block}>
+                        У вас пока нет постов!     
+            </p>
             {newss.map((news)=>(
             <div className={style.sticky_top} key={news.id}>
                 
@@ -87,14 +84,15 @@ export default function LK() {
                     </tbody>
                 </table>
                 <div className={style.button_conteiner}>
-                    <a href="#" className={style.button_redact}>Редактировать</a>
-                    <a href="#" className={style.button_delete}>Удалить</a>
+                    <a href="#" className={style.button_redact} onClick={() => redactNews(news.id)}>Редактировать</a>
+                    <a href="#" className={style.button_delete} onClick={() => deleteNews(news.id)}>Удалить</a>
                 </div>
                 
             </div>
             ))}
         </div>
         } 
+        </LKLayouts>
     </>
   )
 }

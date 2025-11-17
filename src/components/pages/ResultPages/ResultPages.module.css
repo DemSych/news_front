@@ -1,0 +1,11 @@
+.successfully{
+    font-size: 30px;
+    font-weight: 500;
+    color: darkcyan;
+}
+.btn_successfully{
+    padding: 10px 25px;
+    color: #0c0c0c;
+    background-color: rgb(251, 255, 0);
+    border:1px solid #0c0c0c;
+}

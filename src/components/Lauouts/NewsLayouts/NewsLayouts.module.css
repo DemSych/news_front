@@ -1,0 +1,54 @@
+.menu{
+    width: 100%;
+    height: auto;
+    background-color: #5e4886;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.name_menu{
+    padding: 5px 20px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    margin-right: 50px;
+}
+.news_menu, .main_menu{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    list-style-type: none;
+    border-left: 1px solid #fff;
+    padding: 25px 0;
+}
+.button_menu{
+    display: block;
+}
+.button{
+    padding: 10px 20px;
+    margin: 20px 10px;
+    color: #fff;
+   
+}
+.isactive_block{
+    display: none;
+}
+.active_block{
+    position: absolute;
+    background-color: #f2f545;
+    border:1px solid #0c0c0c;
+    padding: 20px;
+    margin: 0 auto;
+    top: 50%;
+    left: 35%;
+}
+.header_error{
+    font-size: 20px;
+    color: #000;
+}
+.button_error{
+    padding: 10px 20px;
+    background-color: blue;
+    border-radius: 10px;
+    color:#fff;
+}

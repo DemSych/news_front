@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import style from './newNews.module.css';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { request } from '../../libs/request';
-
+import ResultPages from '../resultPages/resultPages';
+import LKLayouts from '../../Lauouts/LKLayouts/LKLayouts';
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 let VITE_BACK_IMG = import.meta.env.VITE_BACK_IMG;
 export default function newNews() {
@@ -10,7 +11,8 @@ export default function newNews() {
     let [selectedFile, setSelectedFile] = useState(null);
     let [isActive, setIsActive] = useState(false);
     let [isActiveMenu, setIsActiveMenu] = useState(false);
-    const [loadNews, setLoadNews] = useState({userId: null,title: null, short_content: null, content: null, name_img: null});
+    let [result, setResult] = useState(null);
+    const [loadNews, setLoadNews] = useState({userId: null,title: null, short_content: null, contents: null, name_img: null});
     useEffect(()=>{
        
           request({method:"POST", url: VITE_BACK_API + "/check-user", data: {"token": sessionStorage.getItem("token")}, callback: (respons)=>{
@@ -23,21 +25,20 @@ export default function newNews() {
     
       },[]);
     function loaderNews(evt){
-      const formData = new FormData();
-      formData.append('myFile', selectedFile); 
-    
-      evt.preventDefault();
-      request({method: 'POST', url: VITE_BACK_API + '/post-loader-images', data: formData, callback:(respons)=>{
-               
-                loadNews.name_img = VITE_BACK_IMG + respons.data;
-                let copy = Object.assign({},loadNews );
-                setLoadNews(copy);
-                request({method: 'POST', url: VITE_BACK_API + '/post-loader-news', data: loadNews, callback:(respons)=>{
-                   
-                  setIsActive(!isActive);
-                  setIsActiveMenu(!isActiveMenu);
-              }});
-              }});
+       evt.preventDefault(); 
+              const formData = new FormData();
+              formData.append('myFile', selectedFile);
+              request({method: 'POST', url: VITE_BACK_API + '/post-loader-images', data: formData, callback:(respons)=>{               
+                      
+                    loadNews.name_img = VITE_BACK_IMG + respons.data;
+                    let copy = Object.assign({},loadNews );
+                    setLoadNews(copy);   
+                      request({method: 'POST', url: VITE_BACK_API + '/post-loader-news', data: loadNews, callback:(respons)=>{
+                          setResult(respons.data);
+                          setIsActive(!isActive);
+                          setIsActiveMenu(!isActiveMenu);
+                       }});
+                  }}); 
     }
     function onChangeTitle(evt) {
        loadNews.title = evt.target.value;
@@ -50,50 +51,40 @@ export default function newNews() {
        setLoadNews(copy);
     }
     function onChangeContent(evt){
-      loadNews.content = evt.target.value;
+      loadNews.contents = evt.target.value;
       let copy = Object.assign({},loadNews );
        setLoadNews(copy);
     }
     function onChangeFile(evt){
-    selectedFile = evt.target.files[0]
-     
-     setSelectedFile(selectedFile);
-      
+    selectedFile = evt.target.files[0];
+    setSelectedFile(selectedFile);
     }
-    function comeLK(){
-        navigate("/LK");
-        }
-    function comeBack(){
-        navigate("/news");
-        }
+    
     function comeList(){
        window.location.reload();
-        console.log(1234);
         }
     return (
     <div >
-          <div className={style.simplebar_content}>
-                          
-              <ul className={style.menu_admin}>
-                  <li className={style.menu_admin_pint}><a href="#" onClick={comeBack}>Вернуться к новостям</a></li>
-                  <li className={style.menu_admin_pint}><a href="#" onClick={comeLK}>Вернуться в ЛК</a></li>
-              </ul>
-          </div>
+      <LKLayouts>
+          
           <div className={isActiveMenu ? style.isactive_block : style.active_menu}>
             <form action='' className={style.form_news} onSubmit={loaderNews}>
                 <div >
                   <label className={style.label}>Оглавление</label>
-                  <input onChange={onChangeTitle} className={style.title} type="text"  name="title" id="exampleInputTitle"/>
+                  <textarea onChange={onChangeTitle} className={style.title} name="title" defaultValue= ''></textarea>
+                  {/* <input onChange={onChangeTitle} className={style.title} type="text"  name="title" id="exampleInputTitle"/> */}
                 </div>
         
                 <div >
                   <label className={style.label}>Описание</label>
-                  <input onChange={onChangeShortContent} className={style.short_content} type="text" name="short_content	" id="exampleInputShortContent	" />
+                  <textarea onChange={onChangeShortContent} className={style.short_content} name="short_content" defaultValue= ''></textarea>
+                  {/* <input onChange={onChangeShortContent} className={style.short_content} type="text" name="short_content	" id="exampleInputShortContent	" /> */}
                 </div>
         
                 <div>
                   <label className={style.label}>Контент</label>
-                 <input onChange={onChangeContent} className={style.content} type="text" name="content" id="exampleСontent"/>
+                  <textarea onChange={onChangeContent} className={style.content} name="content" defaultValue= ''></textarea>
+                 {/* <input onChange={onChangeContent} className={style.content} type="text" name="content" id="exampleСontent"/> */}
                 </div>
                 <div > 
                   <label className={style.label}>Выберите изображение</label>
@@ -106,9 +97,12 @@ export default function newNews() {
             </form>
           </div>
           <div className={isActive ? style.active_block : style.isactive_block}>
-             <h3 className={style.successfully}>Новость успешно добавлена</h3>
-             <a className={style.btn_successfully} href="#" onClick={comeList}>Добавить следующую</a>
+              <ResultPages 
+                  result = {result}
+                  functionResult = {comeList}
+              />
           </div>
+          </LKLayouts>
     </div>
   )
 }

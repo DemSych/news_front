@@ -7,7 +7,7 @@
     border-radius: 20px;
    
 }
-.authHeader{
+.registration_header{
     
     font-size: 24px;
     text-transform: uppercase;
@@ -60,4 +60,14 @@
 }
 .isactive_block{
     display: none;
+}
+.file_avatar{
+    color:#fff;
+}
+.form_user{
+     padding: 10px 10px 10px 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
 }

@@ -4,20 +4,22 @@ import { request } from '../../libs/request';
 import { useParams } from 'react-router-dom';
 import style from './newsChildren.module.css';
 import { FcLike } from "react-icons/fc";
-import imges from '../imges/image.jpg';
 import { FaCalendarAlt } from "react-icons/fa";
-import Loader from '../loader/loader';
-
-
+import Loader from '../Loader/Loader';
+import ResultPages from '../resultPages/resultPages';
+import NewsLayout from '../../Lauouts/NewsLayouts/NewsLayout';
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 
 export default function newsChildren() {
     let navigate = useNavigate();
     let [newsChild, setNewsChild] = useState([]);
+    let [user, setUser] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     let { id } = useParams();
-    
+    let [isActive, setIsActive] = useState(false);
+    let [result, setResult] = useState(null);
     useEffect(()=>{
+      setIsLoading(true);
         if(!sessionStorage.getItem("token")){
             navigate("/auth");
         }
@@ -27,14 +29,14 @@ export default function newsChildren() {
               sessionStorage.removeItem("token");
               navigate("/auth");
             }
+            setUser(respons.data);
           }})
         }
     
       },[]);
     useEffect(()=>{
-      setIsLoading(true);
+      
        request({method:"GET", url: VITE_BACK_API + "/get-faile-newsChild/"+ id, callback: (respons)=>{
-             
              setNewsChild(respons.data);
              setIsLoading(false);
             }
@@ -42,41 +44,30 @@ export default function newsChildren() {
        
        },[]);  
       
-    function exit(){
-    sessionStorage.removeItem("token");
-    navigate("/auth");
-    }
-    function comeBack(){
-    navigate("/news");
-    }
     function likePlus(){
-      request({method:"POST", url: VITE_BACK_API + "/check-user", data: {"token": sessionStorage.getItem("token")}, callback: (respons)=>{
-              if(respons.data.author != 1){
+              if(user.id != newsChild.author_id){
                  request({method:"POST", url: VITE_BACK_API + "/like-plus/"+ id, callback: (respons)=>{
-                    console.log(respons);
+                    setIsActive(!isActive);
+                    setResult(respons.data);
                   }})
               }
               else{
-                  alert("Вы не можете оставить отзыв");
+                setIsActive(!isActive);
+                setResult("Вы не можете поставить Like, т.к. являетесь автором статьи");
               }
-            }})
     }
-    
+    function comeNewsChild(){
+        window.location.reload();
+       
+    }
   return (
     <>
+      <NewsLayout>
       {(isLoading)?
         <Loader />
        : 
        <>
-      <div className={style.menu}>
-          <h2 className={style.name_menu}>Новостной блог</h2>
-          <div className={style.nav_menu}>
-            <ul className={style.main_menu}>
-              <li className={style.button_menu}><a href="#" className={style.button} onClick={comeBack}>К списку новостей</a></li>
-              <li className={style.button_menu}><a href="#" className={style.button} onClick={exit}>Выход</a></li>
-            </ul>				
-          </div>
-      </div>
+      
       <div className={style.newss}>
           <div className={style.header_news}>
             <div className={style.header_text_news}>
@@ -99,8 +90,16 @@ export default function newsChildren() {
             </div>
           </div>
       </div>
+      <div className={isActive ? style.active_block : style.isactive_block}>
+                  
+          <ResultPages 
+            result = {result}
+            functionResult = {comeNewsChild}         
+           />
+      </div>
       </>
       }
+      </NewsLayout>
     </>
   );
 }
