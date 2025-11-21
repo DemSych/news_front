@@ -90,17 +90,17 @@ export default function newsRedact() {
           <div className={isActiveMenu ? style.isactive_block : style.active_menu}>
             <form action='' className={style.form_news} onSubmit={redactNews}>
                 <div >
-                  <label className={style.label}>Оглавление</label>
+                  <label className={style.label}>Заголовок</label>
                   <textarea onChange={onChangeTitle} className={style.title} name="title" defaultValue= {newsChild.title}></textarea>
                 </div>
         
                 <div >
-                  <label className={style.label}>Описание</label>
+                  <label className={style.label}>Краткое содержание</label>
                   <textarea onChange={onChangeShortContent} className={style.short_content} name="short_content" defaultValue= {newsChild.short_content}></textarea>
                 </div>
         
                 <div>
-                  <label className={style.label}>Контент</label>
+                  <label className={style.label}>Текст</label>
                   <textarea onChange={onChangeContent} className={style.content} name="content" defaultValue= {newsChild.content}></textarea>
                 </div>
                 <div > 
@@ -110,7 +110,7 @@ export default function newsRedact() {
                 </div>
 
                 <div >
-                  <button className={style.btn}>Заменить</button>
+                  <button className={style.btn}>Редактировать</button>
               
                 </div>                              
             </form>

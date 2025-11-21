@@ -70,6 +70,7 @@ export default function LK() {
                             <th>Description</th>
                             <th>Imges</th>
                             <th>Content</th>
+                            <th>Status</th>
                             <th>Date</th>
                         </tr>
                     </thead>
@@ -79,6 +80,7 @@ export default function LK() {
                             <td>{news.short_content}</td>
                             <td><img src={news.news_img} className={style.imges_content}/></td>
                             <td>{news.content}</td>
+                            <td>{news.status}</td>
                             <td>{news.date}</td>
                         </tr>
                     </tbody>

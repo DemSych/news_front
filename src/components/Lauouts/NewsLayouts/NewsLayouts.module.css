@@ -35,16 +35,18 @@
 }
 .active_block{
     position: absolute;
-    background-color: #f2f545;
+    background-color: #f54545;
     border:1px solid #0c0c0c;
     padding: 20px;
     margin: 0 auto;
-    top: 50%;
-    left: 35%;
+    top: 30%;
+    left: 45%;
+    width: 300px;
+    border-radius: 20px;
 }
 .header_error{
     font-size: 20px;
-    color: #000;
+    color: #faf7f7;
 }
 .button_error{
     padding: 10px 20px;

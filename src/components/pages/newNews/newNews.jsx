@@ -70,19 +70,19 @@ export default function newNews() {
           <div className={isActiveMenu ? style.isactive_block : style.active_menu}>
             <form action='' className={style.form_news} onSubmit={loaderNews}>
                 <div >
-                  <label className={style.label}>Оглавление</label>
+                  <label className={style.label}>Заголовок</label>
                   <textarea onChange={onChangeTitle} className={style.title} name="title" defaultValue= ''></textarea>
                   {/* <input onChange={onChangeTitle} className={style.title} type="text"  name="title" id="exampleInputTitle"/> */}
                 </div>
         
                 <div >
-                  <label className={style.label}>Описание</label>
+                  <label className={style.label}>Краткое содержание</label>
                   <textarea onChange={onChangeShortContent} className={style.short_content} name="short_content" defaultValue= ''></textarea>
                   {/* <input onChange={onChangeShortContent} className={style.short_content} type="text" name="short_content	" id="exampleInputShortContent	" /> */}
                 </div>
         
                 <div>
-                  <label className={style.label}>Контент</label>
+                  <label className={style.label}>Текст</label>
                   <textarea onChange={onChangeContent} className={style.content} name="content" defaultValue= ''></textarea>
                  {/* <input onChange={onChangeContent} className={style.content} type="text" name="content" id="exampleСontent"/> */}
                 </div>

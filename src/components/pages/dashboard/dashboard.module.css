@@ -1,10 +1,8 @@
-.app_menu{
-    width: 200px;
+.container{
+    display: flex;
     height: 100%;
-    text-align: left;
-    padding: 15px;
     background-color: #fff;
-    border-right: 1px solid #817f7f42;
+    
 }
 
 .nav_center{
@@ -23,15 +21,7 @@
     list-style: none;
     padding: 10px 5px;
 }
-.elements{
-    list-style: none;
-    font-size: 14px;
-    font-weight: 400;
-}
-.admin_menu{
-    padding: 10px;
 
-}
 .item_level{
     font-size: 14px;
     font-weight: 400;
@@ -40,19 +30,14 @@
     text-align: left;
     font-size: 16px;
     margin: 0;
-    padding: 20px;
+    padding: 0 20px;
     width: 700px;
 }
 .main_content{
     background-color: #fff;
     width: 700px;
 }
-.menu_text{
-    padding-left: 5px;
-}
-.logo_img{
-    width: 100%;
-}
+
 .rounded_full{
     width: 60px;
     border-radius: 50%;

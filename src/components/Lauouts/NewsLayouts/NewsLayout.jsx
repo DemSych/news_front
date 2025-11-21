@@ -8,10 +8,10 @@ let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 export default function NewsLayout(props){
     let [isActive, setIsActive] = useState(false);
     let navigate = useNavigate();
-    function onLK(){
+    function onAdmin(){
         request({method:"POST", url: VITE_BACK_API + "/check-user", data: {"token": sessionStorage.getItem("token")}, callback: (respons)=>{
-            if(respons.data.author == 'editor'){
-               navigate("/LK");
+            if(respons.data.admin == 'admin'){
+               navigate("/dashboard");
             }
             else{
               setIsActive(!isActive);
@@ -23,14 +23,16 @@ export default function NewsLayout(props){
         navigate("/auth");
       }
       function onLike(){
-        navigate('/newsLike');
-      
+        navigate('/newsLike');      
       }
       function onDate(){
         navigate('/news');
       }
       function reboot(){
          window.location.reload();
+      }
+      function onLK(){
+        navigate('/LK');      
       }
     return (
 
@@ -48,6 +50,7 @@ export default function NewsLayout(props){
            <div className={style.nav_menu}>
                       <ul className={style.main_menu}>
                           <li className={style.button_menu}><a href="#" className={style.button} onClick={onLK}>Личный кабинет</a></li>
+                          <li className={style.button_menu}><a href="#" className={style.button} onClick={onAdmin}>Admin</a></li>
                           <li className={style.button_menu}><a href="#" className={style.button} onClick={exit}>Выход</a></li>
                       </ul>				
                 </div>
@@ -55,7 +58,7 @@ export default function NewsLayout(props){
     {props.children}
     <div className={isActive ? style.active_block : style.isactive_block}>
                       
-             <h3 className={style.header_error}>Нет прав для входа в ЛК</h3>
+             <h3 className={style.header_error}>Доступ закрыт. Необходимы права администратора</h3>
              <a className={style.button_error} href="#" onClick={reboot}>Продолжить</a>
     </div>
     </>

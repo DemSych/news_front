@@ -11,7 +11,7 @@ export default function Registration() {
     let [isActive, setIsActive] = useState(false);
     let [result, setResult] = useState(null);
     let [selectedFile, setSelectedFile] = useState(null);
-    const [registrationUser, setregistrationUser] = useState({name_user: null, email: null, password: null,  editor: null, name_img: null});
+    const [registrationUser, setregistrationUser] = useState({name_user: null, email: null, password: null,  second_password: null, name_img: null});
     function onRegistrationrequest(evt){
         evt.preventDefault();
                 const formData = new FormData();
@@ -36,18 +36,7 @@ export default function Registration() {
                         }});
                     
                     }});
-                        
-        // request({method: 'POST', url: VITE_BACK_API + '/registration', data: registrationUser, callback:(respons)=>{
-        //    if(respons.data.hasOwnProperty("token")){
-        //         sessionStorage.setItem('token', respons.data.token);
-        //         navigate("/news");
-        //    } 
-        //    else{
-        //     setResult(respons.data);
-        //     setIsActive(!isActive);
-        //    }
-        // }});
-        
+      
     }
     function onChangeName(evt){
         registrationUser.name_user = evt.target.value;
@@ -67,8 +56,8 @@ export default function Registration() {
     function comeRegistration(){
        window.location.reload();
     }
-    function onChangeEditor(evt){
-        registrationUser.editor = evt.target.value;
+    function onChangeSecondPassword(evt){
+        registrationUser.second_password = evt.target.value;
         let copy = Object.assign({},registrationUser );
         setregistrationUser(copy);
         
@@ -104,10 +93,8 @@ export default function Registration() {
                                 <input type="password" onChange={onChangePassword} placeholder='password' name="password" id="exampleInputPassword" className={style.form_control}/>
                             </div>
                             <div >
-                                <input type="radio" onChange={onChangeEditor} id="user" name="options" value="user"/>
-                                <label htmlFor='user'className={style.form_user} >Пользователь</label>
-                                <input type="radio" onChange={onChangeEditor} id="editor" name="options" value="editor"/>
-                                <label htmlFor='editor' className={style.form_user}>Редактор</label>
+                                <label  className={style.label}>Подтвердите пароль</label>
+                                <input type="password" onChange={onChangeSecondPassword} placeholder='password' name="password" id="exampleInputPassword" className={style.form_control}/>
                             </div>
                             <div >
                                 <label  className={style.label}>Загрузите аватар</label>

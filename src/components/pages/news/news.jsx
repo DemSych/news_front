@@ -32,7 +32,7 @@ export default function news() {
   },[]);
   useEffect(()=>{
     setIsLoading(true);
-   request({method:"GET", url: VITE_BACK_API + "/get-faile-news", callback: (respons)=>{
+   request({method:"GET", url: VITE_BACK_API + "/get-faile-active-news", callback: (respons)=>{
          
          setNewss(respons.data);
          setIsLoading(false);
@@ -63,6 +63,7 @@ export default function news() {
       
       
       {newss.map((news)=>(
+        
         <div className={style.blok_content} key={news.id}>
           <a className={style.blok_content_all} href="#" onClick={() => onNewsChildren(news.id,news.author_id)}>
             <div className={style.content_image}><img src = {news.news_img} alt="изображение" className={style.image_news}/></div>
