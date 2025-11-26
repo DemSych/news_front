@@ -31,12 +31,8 @@ export default function LKLayouts(props) {
     
       },[]);
     
-     function exit(){
-        sessionStorage.removeItem("token");
-        navigate("/auth");
-        }
-    function comeBack(){
-        navigate("/news");
+    function exit(){
+        navigate("/dashboard");
         }
     function newNews(){
         navigate("/newNews");
@@ -58,7 +54,6 @@ export default function LKLayouts(props) {
             <ul className={style.menu_admin}>
                 <li className={style.menu_admin_pint}><a href="#" onClick={main}>Главная</a></li>
                 <li className={style.menu_admin_pint}><a href="#" onClick={newNews}>Добавить новость</a></li>
-                <li className={style.menu_admin_pint}><a href="#" onClick={comeBack}>Вернуться к новостям</a></li>
                 <li className={style.menu_admin_pint}><a href="#" onClick={exit}>Выход</a></li>
             </ul>
         </div> 

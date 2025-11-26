@@ -26,6 +26,9 @@ export default function DashboardLayouts() {
     function onUsers(){
     navigate("/users");
     } 
+    function onLK(){
+        navigate('/LK');      
+    }
   return (
     <>
         <div id="app-menu"
@@ -59,9 +62,9 @@ export default function DashboardLayouts() {
         
                             <li className={style.menu_item}>
                                 <a href="#"
-                                    className={style.item_level}>
+                                    className={style.item_level} onClick={onLK}>
                                     <span className={style.menu_icon}><RxDashboard /></span>
-                                    <span className={style.menu_text}> Components </span>
+                                    <span className={style.menu_text}> Еdit </span>
                                 </a>
                             </li>
         

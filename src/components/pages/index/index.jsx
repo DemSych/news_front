@@ -12,8 +12,8 @@ export default function index() {
   }
   return (
     <>
-     <h2 className={style.title_news_block}>Новостной блог</h2>
-     <p className={style.content_news_block}>На сайт могут войти только авторизованные пользователм</p>
+     <h2 className={style.title_news_block}>НОВОСТИ</h2>
+     <p className={style.content_news_block}>Приветствуем вас на новостном сайте! Для продолжения просмотра необходимо авторизоваться. Если у вас нет еще аккаунта, зарегистрируйтесь. </p>
     <div>
       <a href='#' className={style.btn_title} onClick={onAuth}>Авторизация</a>
       <a href='#' className={style.btn_title} onClick={onReg}>Регистрация</a>

@@ -31,9 +31,7 @@ export default function NewsLayout(props){
       function reboot(){
          window.location.reload();
       }
-      function onLK(){
-        navigate('/LK');      
-      }
+      
     return (
 
     <>
@@ -42,14 +40,13 @@ export default function NewsLayout(props){
            
             <div className={style.nav_news}>
                       <ul className={style.news_menu}>
-                          <li className={style.button_menu} ><a href="#" className={style.button} onClick={onLike}>Популярные новости</a></li>
                           <li className={style.button_menu} ><a href="#" className={style.button} onClick={onDate}>Свежие новости</a></li>
+                          <li className={style.button_menu} ><a href="#" className={style.button} onClick={onLike}>Популярные новости</a></li>
                       </ul>
                   </div>
           
            <div className={style.nav_menu}>
                       <ul className={style.main_menu}>
-                          <li className={style.button_menu}><a href="#" className={style.button} onClick={onLK}>Личный кабинет</a></li>
                           <li className={style.button_menu}><a href="#" className={style.button} onClick={onAdmin}>Admin</a></li>
                           <li className={style.button_menu}><a href="#" className={style.button} onClick={exit}>Выход</a></li>
                       </ul>				

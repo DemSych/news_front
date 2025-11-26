@@ -1,11 +1,12 @@
 .title_news_block{
-    font-size: 30px;
-    color: black;
+    font-size: 60px;
+    color: #b564b7;
 }
 .content_news_block{
-    font-size: 18px;
+    font-size: 25px;
     font-weight: 600;
-    color: black;
+    font-style: oblique;
+    color: rgb(54, 48, 48);
     margin-bottom: 20px;
     
 }
