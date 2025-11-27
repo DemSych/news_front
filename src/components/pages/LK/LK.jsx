@@ -52,49 +52,72 @@ export default function LK() {
     }
     return (
     <>
-    <LKLayouts>
+    
     {(isLoading)?
                 <Loader />
                : 
+        <LKLayouts>     
         <div className={style.continer}>
             <p className={isActive ? style.active_block : style.isactive_block}>
                         У вас пока нет постов!     
             </p>
-            {newss.map((news)=>(
-            <div className={style.sticky_top} key={news.id}>
+            <div className={style.sticky_top}>
                 
                 <table>
-                    <thead>
+                    {/* <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Imges</th>
-                            <th>Content</th>
-                            <th>Status</th>
-                            <th>Date</th>
+                            <th className={style.news_title_th}>Title</th>
+                            <th className={style.news_discript_th}>Description</th>
+                            <th className={style.news_img_th}>Imges</th>
+                            <th className={style.news_content_th}>Content</th>
+                            <th className={style.news_status_th}>Status</th>
+                            <th className={style.news_date_th}>Date</th>
+                            <th className={style.news_control_th}>Control</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                    </thead> */}
+                    {newss.map((news)=>(
+                    <tbody key={news.id}>
                         <tr>
-                            <td>{news.title}</td>
-                            <td>{news.short_content}</td>
-                            <td><img src={news.news_img} className={style.imges_content}/></td>
-                            <td>{news.content}</td>
-                            <td>{news.status}</td>
-                            <td>{news.date}</td>
+                            <th className={style.th}>Title</th>
+                            <td className={style.td}>{news.title}</td>
+                        </tr>
+                        <tr>
+                            <th className={style.th}>Description</th>
+                            <td className={style.td}>{news.short_content}</td>
+                        </tr>
+                        <tr>
+                            <th className={style.th}>Imges</th>
+                            <td className={style.td}><img src={news.news_img} className={style.imges_content}/></td>
+                        </tr>
+                        <tr>
+                            <th className={style.th}>Content</th>
+                            <td className={style.td}>{news.content}</td>
+                        </tr>
+                        <tr>
+                            <th className={style.th}>Status</th>
+                            <td className={style.td}>{news.status}</td>
+                        </tr>
+                        <tr>
+                            <th className={style.th}>Date</th>
+                            <td className={style.td}>{news.date}</td>
+                        </tr>
+                        <tr>
+                            <th ></th>
+                                <div className={style.button_conteiner}>
+                                    <a href="#" className={style.button_redact} onClick={() => redactNews(news.id)}>Редактировать</a>
+                                    <a href="#" className={style.button_delete} onClick={() => deleteNews(news.id)}>Удалить</a>
+                                 </div>
                         </tr>
                     </tbody>
+                    ))}
                 </table>
-                <div className={style.button_conteiner}>
-                    <a href="#" className={style.button_redact} onClick={() => redactNews(news.id)}>Редактировать</a>
-                    <a href="#" className={style.button_delete} onClick={() => deleteNews(news.id)}>Удалить</a>
-                </div>
                 
             </div>
-            ))}
+            
         </div>
-        } 
         </LKLayouts>
+        } 
+        
     </>
   )
 }

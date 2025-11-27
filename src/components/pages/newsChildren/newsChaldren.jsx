@@ -62,12 +62,12 @@ export default function newsChildren() {
     }
   return (
     <>
-      <NewsLayout>
+      
       {(isLoading)?
         <Loader />
        : 
-       <>
-      
+       
+      <NewsLayout>
       <div className={style.newss}>
           <div className={style.header_news}>
             <div className={style.header_text_news}>
@@ -97,9 +97,9 @@ export default function newsChildren() {
             functionResult = {comeNewsChild}         
            />
       </div>
-      </>
-      }
       </NewsLayout>
+      }
+      
     </>
   );
 }

@@ -69,6 +69,18 @@ table{
 td{
     border: 1px solid #000;
 }
+.t_title{
+    width: 20%;
+}
+.t_discrip{
+    width: 50%;
+}
+.t_status{
+    width: 15%;
+}
+.t_control{
+    width: 15%;
+}
 .button_redact, .button_delete{
     display: block;
     padding: 10px 20px;

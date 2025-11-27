@@ -14,20 +14,19 @@
     padding: 10px 5px;
     text-align: left;
 }
+.content_image{
+     width: 100%;
+     height: 350px;
+     border-radius: 20px;
+     overflow:hidden;
+}
 .image_news{
     width: 100%;
     border-radius: 20px;
-    position: relative;
 }
-.image_news:hover::before{
-    content: "";
-    background-color: #fff;
-    position: absolute;
-    z-index: -1;
-    top: 0; left: 0; right: 0; bottom: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.6;
+.blok_content_all:hover .image_news{
+     width: 105%;
+     
 }
 .header_news{
     font-size: 25px;
@@ -52,9 +51,6 @@
 }
 .active_block{
     display: block;
-    position: absolute;
-    top: 60%;
-    left: 40%;
     background-color: #fff;
     padding: 20px;
     border: 1px solid #000;

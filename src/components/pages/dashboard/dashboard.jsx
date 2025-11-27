@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { request } from '../../libs/request';
 import style from './dashboard.module.css';
 import DashboardLayouts from '../../Lauouts/DashboardLayouts/DashboardLayouts';
-
+import Loader from '../Loader/Loader';
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 
 export default function dashboard() {
@@ -12,6 +12,7 @@ let navigate = useNavigate();
   let [user, setUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(()=>{
+    setIsLoading(true);
     if(!sessionStorage.getItem("token")){
         navigate("/auth");
     }
@@ -25,7 +26,6 @@ let navigate = useNavigate();
                navigate("/news");
             }
         setUser(respons.data);
-        setIsLoading(true);
         request({method:"GET", url: VITE_BACK_API + "/get-faile-news", callback: (respons)=>{
            
            setNewss(respons.data);
@@ -56,7 +56,9 @@ function activNews(newsId, status){
 
   return (
     <>
-    
+    {(isLoading)?
+                <Loader />
+               : 
     <div className={style.container }>
         <DashboardLayouts/>
         
@@ -85,24 +87,24 @@ function activNews(newsId, status){
 
                     </div>
                 </div>
-                 {newss.map((news)=>(
-                            <div className={style.sticky_top} key={news.id}>
+                            <div className={style.sticky_top}>
                                 
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Title</th>
-                                            <th>Description</th>
-                                            <th>Status</th>
-                                            <th>Сontrol</th>
+                                            <th className={style.t_title}>Title</th>
+                                            <th className={style.t_discrip}>Description</th>
+                                            <th className={style.t_status}>Status</th>
+                                            <th className={style.t_control}>Сontrol</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    {newss.map((news)=>(
+                                    <tbody key={news.id}>
                                         <tr>
-                                            <td>{news.title}</td>
-                                            <td>{news.short_content}</td>
-                                            <td>{news.status}</td>
-                                            <td>
+                                            <td className={style.t_title}>{news.title}</td>
+                                            <td className={style.t_discrip}>{news.short_content}</td>
+                                            <td className={style.t_status}>{news.status}</td>
+                                            <td className={style.t_control}>
                                                 <div className={style.button_conteiner}>
                                                     <a href="#" className={style.button_redact} onClick={() => blockedNews(news.id, news.status)}>Заблокировать</a>
                                                     <a href="#" className={style.button_delete} onClick={() => activNews(news.id, news.status)}>Разблокировать</a>
@@ -110,18 +112,15 @@ function activNews(newsId, status){
                                             </td>
                                         </tr>
                                     </tbody>
+                                     ))}
                                 </table>
-                            </div>
-                               
-                            ))}
-                         
+                            </div>            
             </main>
 
         </div>
-       
-
     </div>
-
+    
+      }
     </>
   )
 }

@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { request } from '../../libs/request';
 import ResultPages from '../resultPages/resultPages';
 import LKLayouts from '../../Lauouts/LKLayouts/LKLayouts';
+import Loader from '../Loader/Loader';
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 let VITE_BACK_IMG = import.meta.env.VITE_BACK_IMG;
 export default function newNews() {
@@ -12,14 +13,16 @@ export default function newNews() {
     let [isActive, setIsActive] = useState(false);
     let [isActiveMenu, setIsActiveMenu] = useState(false);
     let [result, setResult] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const [loadNews, setLoadNews] = useState({userId: null,title: null, short_content: null, contents: null, name_img: null});
     useEffect(()=>{
-       
+       setIsLoading(true);
           request({method:"POST", url: VITE_BACK_API + "/check-user", data: {"token": sessionStorage.getItem("token")}, callback: (respons)=>{
             
             loadNews.userId = respons.data.id;
             let copy = Object.assign({},loadNews );
             setLoadNews(copy);
+            setIsLoading(false);
           }})
         
     
@@ -65,6 +68,10 @@ export default function newNews() {
         }
     return (
     <div >
+      {(isLoading)?
+                  <Loader />
+                 : 
+      
       <LKLayouts>
           
           <div className={isActiveMenu ? style.isactive_block : style.active_menu}>
@@ -72,19 +79,16 @@ export default function newNews() {
                 <div >
                   <label className={style.label}>Заголовок</label>
                   <textarea onChange={onChangeTitle} className={style.title} name="title" defaultValue= ''></textarea>
-                  {/* <input onChange={onChangeTitle} className={style.title} type="text"  name="title" id="exampleInputTitle"/> */}
                 </div>
         
                 <div >
                   <label className={style.label}>Краткое содержание</label>
                   <textarea onChange={onChangeShortContent} className={style.short_content} name="short_content" defaultValue= ''></textarea>
-                  {/* <input onChange={onChangeShortContent} className={style.short_content} type="text" name="short_content	" id="exampleInputShortContent	" /> */}
                 </div>
         
                 <div>
                   <label className={style.label}>Текст</label>
                   <textarea onChange={onChangeContent} className={style.content} name="content" defaultValue= ''></textarea>
-                 {/* <input onChange={onChangeContent} className={style.content} type="text" name="content" id="exampleСontent"/> */}
                 </div>
                 <div > 
                   <label className={style.label}>Выберите изображение</label>
@@ -103,6 +107,8 @@ export default function newNews() {
               />
           </div>
           </LKLayouts>
+          
+      }
     </div>
   )
 }

@@ -82,10 +82,11 @@ export default function newsRedact() {
     return (
     <>
     <h2 className={style.redact_pages}>Редактирование</h2>
-    <LKLayouts>
+    
          {(isLoading)?
                 <Loader />
                : 
+    <LKLayouts>           
     <div >
           <div className={isActiveMenu ? style.isactive_block : style.active_menu}>
             <form action='' className={style.form_news} onSubmit={redactNews}>
@@ -124,8 +125,9 @@ export default function newsRedact() {
              />
           </div>
     </div>
+    </LKLayouts>
      }
-     </LKLayouts>
+     
     </>
   )
 }

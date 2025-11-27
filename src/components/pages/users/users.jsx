@@ -3,15 +3,16 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { request } from '../../libs/request';
 import style from './users.module.css';
 import DashboardLayouts from '../../Lauouts/DashboardLayouts/DashboardLayouts';
-
+import Loader from '../Loader/Loader';
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 
 export default function users() {
 let navigate = useNavigate();
   let [listUsers, setlistUsers] = useState([]);
   let [user, setUser] = useState([]);
-  //const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(()=>{
+    setIsLoading(true);
     if(!sessionStorage.getItem("token")){
         navigate("/auth");
     }
@@ -25,11 +26,11 @@ let navigate = useNavigate();
                navigate("/news");
             }
         setUser(respons.data);
-        //setIsLoading(true);
+        
         request({method:"POST", url: VITE_BACK_API + "/post-faile-users", callback: (respons)=>{
            
            setlistUsers(respons.data);
-          // setIsLoading(false);
+           setIsLoading(false);
           }
         });     
       }})
@@ -56,16 +57,14 @@ function activeUser(usersId, status){
 
   return (
     <>
-    
+     {(isLoading)?
+                <Loader />
+               : 
     <div className={style.container }>
         <DashboardLayouts/>
         
         <div className={style.page_content}>
-
-            <header className={style.nav_center}>
-                
-              
-                
+            <header className={style.nav_center}>    
                 <div className={style.nav_link}>
                     <div className={style.botton_right}>
                         <a type="button" className={style.items_center}>
@@ -85,29 +84,28 @@ function activeUser(usersId, status){
 
                     </div>
                 </div>
-                 {listUsers.map((users)=>(
-                            <div className={style.sticky_top} key={users.id}>
+                            <div className={style.sticky_top} >
                                 
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th> Avatar</th>
+                                            <th className={style.user_avatar}> Avatar</th>
                                             <th className={style.user_name}>Name</th>
-                                            <th>Email</th>
-                                            <th>Status</th>
-                                            <th>Сontrol</th>
+                                            <th className={style.user_email}>Email</th>
+                                            <th className={style.user_status}>Status</th>
+                                            <th className={style.user_control}>Сontrol</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    {listUsers.map((users)=>(
+                                    <tbody key={users.id}>
                                         <tr>
-                                            <td>
-                                                {/* <img src = {users.avatar} alt="изображение" className={style.image_user}/> */}
+                                            <td className={style.user_avatar}>
                                                 {users.avatar && <img src = {users.avatar} alt="изображение" className={style.image_user}/>}
                                             </td>
                                             <td className={style.user_name}>{users.name}</td>
-                                            <td>{users.email}</td>
-                                            <td>{users.admin}</td>
-                                            <td>
+                                            <td className={style.user_email}>{users.email}</td>
+                                            <td className={style.user_status}>{users.admin}</td>
+                                            <td className={style.user_control}>
                                                 <div className={style.button_conteiner}>
                                                     <a href="#" className={style.button_redact} onClick={() => blockedUser(users.id, users.admin)}>Закрыть доступ</a>
                                                     <a href="#" className={style.button_delete} onClick={() => activeUser(users.id, users.admin)}>Открыть доступ</a>
@@ -115,18 +113,16 @@ function activeUser(usersId, status){
                                             </td>
                                         </tr>
                                     </tbody>
+                                     ))}
                                 </table>
                             </div>
-                               
-                            ))}
-                         
             </main>
 
         </div>
        
 
     </div>
-
+    }
     </>
   )
 }

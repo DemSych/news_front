@@ -85,10 +85,14 @@ td{
     display: flex;
     padding: 15px;
 }
-.user_name{
-    width: 100px;
+.user_name, .user_status, .user_avatar, .user_email{
+    width: 15%;
 }
 .image_user{
     width: 90px;
     border-radius: 50%;
 }
+.user_control{
+    width: 40%;
+}
+

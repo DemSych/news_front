@@ -26,9 +26,7 @@ a:hover{
 table{
     border: 1px solid #000;
 }
-td{
-    border: 1px solid #000;
-}
+
 .button_redact, .button_delete{
     display: block;
     padding: 10px 20px;
@@ -55,4 +53,20 @@ td{
 }
 .isactive_block{
     display: none;
+}
+.th{
+    width: 10%;
+    border: 1px solid #000;
+}
+.td{
+    width: 90%;
+    border: 1px solid #000;
+}
+tbody{
+   border: 2px solid #cc2323;
+}
+.button_conteiner{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
 }

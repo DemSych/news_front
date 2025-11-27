@@ -15,7 +15,6 @@ export default function newsLike() {
   let [newss, setNewss] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   let [isActive, setIsActive] = useState(false);
-  let [result, setResult] = useState(null);
   useEffect(()=>{
     if(!sessionStorage.getItem("token")){
         navigate("/auth");
@@ -33,7 +32,13 @@ export default function newsLike() {
   useEffect(()=>{
     setIsLoading(true);
    request({method:"GET", url: VITE_BACK_API + "/get-faile-news-like", callback: (respons)=>{
-         setNewss(respons.data);
+        if(respons.data.length!= 0){
+            setNewss(respons.data);
+                        
+                   }
+        else{
+            setIsActive(!isActive); 
+                   }
          setIsLoading(false);
         }
       });
@@ -50,13 +55,16 @@ export default function newsLike() {
   }
   return (
     <>
-    <NewsLayout>
+    
      {(isLoading)?
             <Loader />
            : 
            <>
-   
-    <div className={style.content_news}>
+   <NewsLayout>
+    <p className={isActive ? style.active_block : style.isactive_block}>
+                                  На данный момент новостей нет     
+    </p>
+    <div className={isActive ? style.isactive_block : style.content_news}>
       
       
       {newss.map((news)=>(
@@ -75,17 +83,11 @@ export default function newsLike() {
           </a>
         </div>
       ))}
-       <div className={isActive ? style.active_block : style.isactive_block}>
-                         
-          <ResultPages 
-          result = {result}
-          functionResult = {comeNews}         
-          />
-        </div>
     </div>
+    </NewsLayout>
      </>
       }
-      </NewsLayout>
+      
     </>
   )
 }

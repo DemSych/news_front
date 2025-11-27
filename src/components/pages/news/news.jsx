@@ -13,6 +13,7 @@ export default function news() {
   let navigate = useNavigate();
   let [newss, setNewss] = useState([]);
   let [userId, setUserId] = useState([]);
+  let [isActive, setIsActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(()=>{
     if(!sessionStorage.getItem("token")){
@@ -33,8 +34,13 @@ export default function news() {
   useEffect(()=>{
     setIsLoading(true);
    request({method:"GET", url: VITE_BACK_API + "/get-faile-active-news", callback: (respons)=>{
-         
-         setNewss(respons.data);
+        if(respons.data.length!= 0){
+            setNewss(respons.data);
+                        
+                   }
+        else{
+            setIsActive(!isActive); 
+                   }
          setIsLoading(false);
         }
       });
@@ -53,13 +59,16 @@ export default function news() {
   }
   return (
     <>
-    <NewsLayout>
+    
      {(isLoading)?
             <Loader />
            : 
            <>
-    
-    <div className={style.content_news}>
+    <NewsLayout>
+      <p className={isActive ? style.active_block : style.isactive_block}>
+                              На данный момент новостей нет     
+      </p>
+    <div className={isActive ? style.isactive_block : style.content_news}>
       
       
       {newss.map((news)=>(
@@ -81,9 +90,10 @@ export default function news() {
       ))}
        
     </div>
+    </NewsLayout>
      </>
       }
-      </NewsLayout>
+      
     </>
   )
 }
