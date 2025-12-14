@@ -54,3 +54,48 @@
     border-radius: 10px;
     color:#fff;
 }
+@media(min-width: 825px) and (max-width: 990px){
+    .button{
+        padding: 0%;
+        margin: 20px 10px;
+        color: #fff;
+
+    }
+    
+
+}
+@media(min-width: 660px) and (max-width: 824px){
+    .button{
+        padding: 0%;
+        margin: 5px 5px;
+        color: #fff;
+
+    }
+    .name_menu{
+        padding: 10px 5px;
+        font-size: 20px;
+        margin-right: 30px;
+    }
+    .news_menu, .main_menu{
+        padding: 15px 0;
+    }
+}
+@media(max-width: 659px){
+    .button{
+        padding: 0%;
+        margin: 5px 5px;
+        color: #fff;
+        font-size: 12px;
+        display: block;
+
+    }
+    .name_menu{
+        padding: 10px 5px;
+        font-size: 15px;
+        margin-right: 10px;
+    }
+    .news_menu, .main_menu{
+        padding: 5px 0; 
+        display: block;
+    }
+}

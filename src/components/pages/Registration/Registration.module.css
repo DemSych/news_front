@@ -71,3 +71,9 @@
     line-height: 1.5;
     color: #fff;
 }
+.result{
+    font-size: 18px;
+    color: #e3989e;
+    width: 300px;
+    margin-left: 10%;
+}

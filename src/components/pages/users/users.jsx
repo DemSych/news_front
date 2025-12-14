@@ -28,7 +28,7 @@ let navigate = useNavigate();
         setUser(respons.data);
         
         request({method:"POST", url: VITE_BACK_API + "/post-faile-users", callback: (respons)=>{
-           
+            console.log(respons.data);
            setlistUsers(respons.data);
            setIsLoading(false);
           }

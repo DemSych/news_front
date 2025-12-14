@@ -37,3 +37,8 @@ a{
     font-size: 20px;
     font-weight: 400;
 }
+@media (max-width: 600px){
+    .avatar{
+        display: none;
+    }
+}

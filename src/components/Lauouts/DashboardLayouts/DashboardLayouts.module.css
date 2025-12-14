@@ -5,6 +5,7 @@
     padding: 15px;
     background-color: #fff;
     border-right: 1px solid #817f7f42;
+    position: relative;
 }
 
 .nav_center{
@@ -99,4 +100,43 @@ td{
 .sticky_top{
     display: flex;
     padding: 15px;
+}
+.menu_open{
+    display: none;
+}
+@media (max-width: 1040px){
+    .app_menu{
+       width: 30%; 
+    }
+    .header_content, .main_content{
+        width: 70%; 
+    }
+     .logo_main, .left_menu{
+      display: none;
+    }
+    .logo_img{
+        width: 70%;
+    }
+    .menu_open{
+        display: block;
+        position: absolute;
+        /* opacity: -1; */
+        font-size: 30px;
+        padding: 15px;
+    }
+    .app_menu:hover .left_menu{
+         display: block;
+         position: absolute;
+         width: 150px;
+         background-color: #fff;
+    }
+}
+@media (max-width: 800px){
+    .app_menu{
+       width: 10%; 
+    }
+    .header_content, .main_content{
+        width: 90%; 
+    }
+    
 }

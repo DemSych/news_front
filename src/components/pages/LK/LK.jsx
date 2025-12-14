@@ -64,17 +64,6 @@ export default function LK() {
             <div className={style.sticky_top}>
                 
                 <table>
-                    {/* <thead>
-                        <tr>
-                            <th className={style.news_title_th}>Title</th>
-                            <th className={style.news_discript_th}>Description</th>
-                            <th className={style.news_img_th}>Imges</th>
-                            <th className={style.news_content_th}>Content</th>
-                            <th className={style.news_status_th}>Status</th>
-                            <th className={style.news_date_th}>Date</th>
-                            <th className={style.news_control_th}>Control</th>
-                        </tr>
-                    </thead> */}
                     {newss.map((news)=>(
                     <tbody key={news.id}>
                         <tr>

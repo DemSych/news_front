@@ -70,3 +70,35 @@
 .newss{
     position: relative;
 }
+@media (max-width: 1040px){
+   .title_news{
+        font-size: 35px;
+    }
+    .content_news_text{
+    font-size: 15px;
+    }
+}
+@media(max-width: 885px){
+   .title_news{
+        font-size: 25px;
+    }
+    .content_news_text{
+        font-size: 12px;
+    }
+}
+@media(max-width: 600px){
+    .header_news{
+        width: 100%;
+        display: block;
+        margin-top: 20px;
+    }
+    .header_text_news{
+        display: block;
+        width: 100%;
+    }
+    .header_imges_news{
+        padding: 10px;
+        display: block;
+        width: 100%;
+    }
+}

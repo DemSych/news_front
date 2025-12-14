@@ -57,7 +57,7 @@ export default function newsChildren() {
               }
     }
     function comeNewsChild(){
-        window.location.reload();
+       window.history.back()
        
     }
   return (
@@ -84,7 +84,7 @@ export default function newsChildren() {
           </div>
           <div className={style.content_news}>
             <p className={style.content_news_text}>{newsChild.content}</p>
-            <div className={style.like}>
+            <div className={isActive ? style.isactive_block : style.like}>
               <span className={style.Like_text}>Понравился блог? Поставьте Like!</span>
               <a className={style.like_icon} onClick={likePlus}><FcLike /></a>
             </div>

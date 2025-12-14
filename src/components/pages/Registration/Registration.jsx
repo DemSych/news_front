@@ -2,13 +2,11 @@ import React, { useState } from 'react'
 import style from './Registration.module.css'
 import { request } from '../../libs/request';
 import { useNavigate } from 'react-router';
-import ResultPages from '../resultPages/resultPages';
 
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 let VITE_BACK_IMG = import.meta.env.VITE_BACK_IMG;
 export default function Registration() {
     let navigate = useNavigate();
-    let [isActive, setIsActive] = useState(false);
     let [result, setResult] = useState(null);
     let [selectedFile, setSelectedFile] = useState(null);
     const [registrationUser, setregistrationUser] = useState({name_user: null, email: null, password: null,  second_password: null, name_img: null});
@@ -26,16 +24,22 @@ export default function Registration() {
                        let copy = Object.assign({},registrationUser );
                         setregistrationUser(copy); 
                        request({method: 'POST', url: VITE_BACK_API + '/registration', data: registrationUser, callback:(respons)=>{
-                            if(respons.data == true){
-                                navigate("/auth");
+                            // if(respons.data == true){
+                            //     navigate("/auth");
+                            // } 
+                            // else{
+                            //     setResult(respons.data);
+                            // }
+                            if(respons.data.hasOwnProperty("token")){
+                                sessionStorage.setItem('token', respons.data.token);
+                                navigate("/news");
                             } 
                             else{
                                 setResult(respons.data);
-                                setIsActive(!isActive);
                             }
-                        }});
+                            }});
                     
-                    }});
+                        }});
       
     }
     function onChangeName(evt){
@@ -53,9 +57,6 @@ export default function Registration() {
         let copy = Object.assign({},registrationUser );
         setregistrationUser(copy);
     }
-    function comeRegistration(){
-       window.location.reload();
-    }
     function onChangeSecondPassword(evt){
         registrationUser.second_password = evt.target.value;
         let copy = Object.assign({},registrationUser );
@@ -72,7 +73,7 @@ export default function Registration() {
   return (
     <>
         
-                    <div className={isActive ? style.isactive_block : style.container}>
+                    <div className={style.container}>
 
                         <div >                            
                                 <h1 className={style.registration_header}>Регистрация</h1>                           
@@ -94,7 +95,7 @@ export default function Registration() {
                             </div>
                             <div >
                                 <label  className={style.label}>Подтвердите пароль</label>
-                                <input type="password" onChange={onChangeSecondPassword} placeholder='password' name="password" id="exampleInputPassword" className={style.form_control}/>
+                                <input type="password" onChange={onChangeSecondPassword} placeholder='password' name="secondpassword" id="exampleInputSecondPassword" className={style.form_control}/>
                             </div>
                             <div >
                                 <label  className={style.label}>Загрузите аватар</label>
@@ -108,15 +109,10 @@ export default function Registration() {
                                 <button className={style.btn}>Продолжить</button>
                             </div>
 
-                            
+                            <p className={style.result}>{result}</p>
                         </form>
                     </div>
-                    <div className={isActive ? style.active_block : style.isactive_block}>
-                                
-                                 <ResultPages result = {result} functionResult = {comeRegistration}/>
-                                
-                    </div>
-           
+                        
     </>
   )
 }

@@ -13,7 +13,7 @@ import { FaPalette } from "react-icons/fa";
 import { MdOutlineVerified } from "react-icons/md";
 import { FaChartSimple } from "react-icons/fa6";
 import { IoShareSocialOutline } from "react-icons/io5";
-
+import { IoMenu } from "react-icons/io5";
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 export default function DashboardLayouts() {
     let navigate = useNavigate();
@@ -31,6 +31,9 @@ export default function DashboardLayouts() {
     }
   return (
     <>
+        <div className={style.menu_open}>
+                                <IoMenu />
+        </div>
         <div id="app-menu"
                     className={style.app_menu}>
                     <div className={style.logo_main}>
@@ -64,7 +67,7 @@ export default function DashboardLayouts() {
                                 <a href="#"
                                     className={style.item_level} onClick={onLK}>
                                     <span className={style.menu_icon}><RxDashboard /></span>
-                                    <span className={style.menu_text}> Еdit </span>
+                                    <span className={style.menu_text}> LK </span>
                                 </a>
                             </li>
         
@@ -137,6 +140,7 @@ export default function DashboardLayouts() {
                         </ul>
                     </div>
                 </div>
+                
     </>
   )
 }

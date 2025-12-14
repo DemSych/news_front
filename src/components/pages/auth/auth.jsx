@@ -7,7 +7,6 @@ import ResultPages from '../resultPages/resultPages';
 let VITE_BACK_API = import.meta.env.VITE_BACK_API;
 export default function auth() {
     let navigate = useNavigate();
-    let [isActive, setIsActive] = useState(false);
     let [result, setResult] = useState(null);
     const [authUser, setauthUser] = useState({email: null, password: null});
     function onAuthrequest(evt){
@@ -19,7 +18,6 @@ export default function auth() {
            } 
            else{
             setResult(respons.data);
-            setIsActive(!isActive);
            }
         }});
         
@@ -34,16 +32,13 @@ export default function auth() {
         let copy = Object.assign({},authUser );
         setauthUser(copy);
     }
-    function comeNews(){
-        window.location.reload();
-    }
     function onChangeReg(){
         navigate("/registration");
     }
   return (
     <>
         
-                    <div className={isActive ? style.isactive_block : style.container}>
+                    <div className={style.container}>
 
                         <div >                            
                                 <h1 className={style.authHeader}>Авторизация</h1>                           
@@ -59,11 +54,6 @@ export default function auth() {
                                 <label  className={style.label}>Введите пароль</label>
                                 <input type="password" onChange={onChangePassword} placeholder='password' name="password" id="exampleInputPassword" className={style.form_control}/>
                             </div>
-
-                            {/* <div>
-                                <input type="checkbox" id="exampleCheck"/>
-                                <label for="exampleCheck" className={style.label_check}>Запомнить меня</label>
-                            </div> */}
                             <div>
                                 <span className={style.label}>Нет аккауна? Перейдите на страницу </span>
                                 <a className={style.label} href="#" onClick={onChangeReg}>Регистрации</a>
@@ -71,16 +61,10 @@ export default function auth() {
                             <div >
                                 <button className={style.btn}>Войти</button>
                             </div>
-
+                            <p className={style.result}>{result}</p>
                             
                         </form>
-                    </div>
-                    <div className={isActive ? style.active_block : style.isactive_block}>
-                                
-                                 <ResultPages result = {result} functionResult = {comeNews}/>
-                                
-                    </div>
-           
+                    </div>     
     </>
   )
 }

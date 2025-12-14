@@ -61,3 +61,9 @@
 .isactive_block{
     display: none;
 }
+.result{
+    font-size: 18px;
+    color: #e3989e;
+    width: 300px;
+    margin-left: 10%;
+}

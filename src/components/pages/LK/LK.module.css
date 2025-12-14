@@ -1,5 +1,5 @@
 .continer{
-    width: 1200px;
+    width: 100%;
     height: auto;
     background-color: #fff;
     
@@ -69,4 +69,16 @@ tbody{
     display: flex;
     justify-content: center;
     padding-bottom: 5px;
+}
+@media (max-width: 600px){
+    .imges_content{
+        width: 100%;
+    }
+    .button_redact, .button_delete{
+        padding: 15px 5px;
+        margin-left: 2px;
+        border-radius: 5px;
+        font-size: 15px;
+        margin-top: 10px;
+    }
 }

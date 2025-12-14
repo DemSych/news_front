@@ -69,6 +69,7 @@ function activNews(newsId, status){
               
                 
                 <div className={style.nav_link}>
+                    
                     <div className={style.botton_right}>
                         <a type="button" className={style.items_center}>
                             <img src={user.avatar} alt="Аватар" className={style.rounded_full}/>
